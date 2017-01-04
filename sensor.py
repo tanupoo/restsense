@@ -30,15 +30,20 @@ class SensorDataCollector(object):
     def get_snapshot(self):
         d = dict()
         d["sensors"] = {}
-        d["sensors"]["living_room_temperature"] = {"status" : "OK", "value": str(random.randrange(20, 30)), "unit" : "degree c"}
+        d["sensors"]["living_room_temperature"] = {
+                "status" : "OK",
+                "value": str(random.randrange(20, 30)),
+                "unit" : "degree c"
+                }
         d["sensors"]["perimeter_security"] = {"status" : "OK", "value": "armed", "unit" : "boolean"}
         return d
 
     def get_alarms(self):
         if random.random() > 0.5:
-            self.alarms.append("Perimeter breach detected at %s" % datetime.datetime.strftime(
-                datetime.datetime.now(),
-                "%Y-%m-%d %H:%M:%S"))
+            self.alarms.append("Perimeter breach detected at %s" %
+                               datetime.datetime.strftime(
+                                       datetime.datetime.now(),
+                                       "%Y-%m-%d %H:%M:%S"))
 
         if len(self.alarms) > 0:
             return {"alarms": self.alarms}

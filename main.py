@@ -17,10 +17,20 @@ BASEDIR = os.getenv("CAF_APP_PATH", moduledir)
 tcfg = os.path.join(BASEDIR, "package_config.ini")
 CONFIG_FILE = os.getenv("CAF_APP_CONFIG_FILE", tcfg)
 
-envlist = ["CAF_APP_PERSISTENT_DIR", "CAF_APP_LOG_DIR", "CAF_APP_CONFIG_FILE", "CAF_APP_CONFIG_DIR",
-           "CAF_APP_USERNAME", "CAF_HOME", "CAF_HOME_ABS_PATH", "CAF_APP_PATH", "CAF_MODULES_PATH",
-           "CAF_APP_DIR", "CAF_MODULES_DIR", "CAF_APP_ID"]
-
+envlist = [
+        "CAF_APP_PERSISTENT_DIR",
+        "CAF_APP_LOG_DIR",
+        "CAF_APP_CONFIG_FILE",
+        "CAF_APP_CONFIG_DIR",
+        "CAF_APP_USERNAME",
+        "CAF_HOME",
+        "CAF_HOME_ABS_PATH",
+        "CAF_APP_PATH",
+        "CAF_MODULES_PATH",
+        "CAF_APP_DIR",
+        "CAF_MODULES_DIR",
+        "CAF_APP_ID"
+        ]
 
 def dump_caf_env():
     logger.info("Printing CAF ENV VARIABLES")
@@ -72,7 +82,7 @@ signal.signal(signal.SIGINT, handle_signal)
 
 if __name__ == '__main__':
     from ConfigParser import SafeConfigParser
-    cfg = SafeConfigParser()
+    cfg = SafeConfigParser({'zipcode':None, 'country':None, 'city':None})
     cfg.read(CONFIG_FILE)
     setup_logging(cfg)
 
@@ -83,7 +93,7 @@ if __name__ == '__main__':
     sdc = SensorDataCollector(cfg)
 
     # Setup web app
-    app = WebApp(sdc, cfg)
+    app = WebApp(sdc, cfg, envlist)
 
     # Setup App Server
 
