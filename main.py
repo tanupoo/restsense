@@ -82,7 +82,10 @@ signal.signal(signal.SIGINT, handle_signal)
 
 if __name__ == '__main__':
     from ConfigParser import SafeConfigParser
-    cfg = SafeConfigParser({'zipcode':None, 'country':None, 'city':None})
+    cfg = SafeConfigParser({
+            'port_number':9000,
+            'zipcode':None, 'country':None, 'city':None
+            })
     cfg.read(CONFIG_FILE)
     setup_logging(cfg)
 
@@ -97,7 +100,8 @@ if __name__ == '__main__':
 
     # Setup App Server
 
-    hs = HTTPServerThread("0.0.0.0", 9000, app)
+    port_number = cfg.getint("webapp", "port_number")
+    hs = HTTPServerThread("0.0.0.0", port_number, app)
     hs.start()
 
     def terminate_self():
