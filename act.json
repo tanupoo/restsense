@@ -1,0 +1,14 @@
+{
+  "resources": {
+    "profile": "c1.small",
+    "network": [{
+      "interface-name": "eth0",
+      "network-name": "iox-nat0",
+      "port_map": {
+        "tcp": {
+          "9000": "10001"
+        }
+      }
+    }]
+  }
+}
